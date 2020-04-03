@@ -73,6 +73,10 @@ function ItemsForm({ items, setItems }) {
   const [isAlert, setIsAlert] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [isDialog, setIsDialog] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editDetails, setEditDetails] = useState({
+    text: ""
+  });
 
   const Alert = props => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -105,6 +109,40 @@ function ItemsForm({ items, setItems }) {
     setItems(items.filter(item => item.key !== itemKey));
   };
 
+  const getItem = itemKey => {
+    return items.filter(item => item.key === itemKey)[0];
+  };
+
+  const handleEditOpen = itemKey => {
+    const { text } = getItem(itemKey).props;
+    console.log("Item ", text);
+    setEditDetails({
+      itemKey: itemKey,
+      text: text
+    });
+    setIsEdit(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEdit(false);
+    setEditDetails({});
+  };
+
+  const handleEdit = itemKey => {
+    const editItem = getItem(editDetails.itemKey);
+    setItems(
+      items.map(item => {
+        if (item.key === editItem.key) {
+          return <Item text={editDetails.text} key={Item.key} />;
+        }
+
+        return item;
+      })
+    );
+
+    handleEditClose();
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.add_item}>
@@ -133,7 +171,11 @@ function ItemsForm({ items, setItems }) {
       <MuiThemeProvider theme={greenTheme}>
         <MuiThemeProvider theme={blueTheme}>
           <div>
-            <ItemsTable items={items} handleDelete={handleDelete} />
+            <ItemsTable
+              items={items}
+              handleDelete={handleDelete}
+              handleEdit={handleEditOpen}
+            />
           </div>
         </MuiThemeProvider>
         <div className={classes.float}>
@@ -193,6 +235,35 @@ function ItemsForm({ items, setItems }) {
               color="secondary"
             >
               Disagree
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={isEdit}
+          onClose={handleEditClose}
+          aria-labelledby="edit-item"
+        >
+          <DialogTitle id="edit-item-title">Edit Item</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Fill the following fields to change the item details
+            </DialogContentText>
+            <TextField
+              margin="dense"
+              id="item-text"
+              label="Text"
+              value={editDetails.text}
+              onChange={e =>
+                setEditDetails({ ...editDetails, text: e.target.value })
+              }
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleEdit} color="primary">
+              Edit
+            </Button>
+            <Button onClick={handleEditClose} color="secondary">
+              Cancel
             </Button>
           </DialogActions>
         </Dialog>

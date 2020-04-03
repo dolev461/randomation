@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   fabButton: {}
 }));
 
-function ItemsTable({ items, handleDelete }) {
+function ItemsTable({ items, handleDelete, handleEdit }) {
   const classes = useStyles();
 
   return (
@@ -41,6 +41,7 @@ function ItemsTable({ items, handleDelete }) {
                       color="primary"
                       aria-label="edit"
                       className={classes.fabButton}
+                      onClick={() => handleEdit(item.key)}
                     >
                       <EditIcon />
                     </Fab>
