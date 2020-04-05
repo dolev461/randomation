@@ -207,66 +207,68 @@ function ItemsForm({ items, setItems }) {
             <DeleteIcon />
           </Fab>
         </div>
-        <Dialog
-          open={isDialog}
-          onClose={handleDialogClose}
-          aria-label="dialog-remove-all"
-        >
-          <DialogTitle id="dialog-title">Remove Confirmation</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="dialog-description">
-              Are you sure you want to remove all of the items?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                setItems([]);
-                handleDialogClose();
-              }}
-              color="primary"
-            >
-              Agree
-            </Button>
-            <Button
-              onClick={() => {
-                handleDialogClose();
-              }}
-              color="secondary"
-            >
-              Disagree
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={isEdit}
-          onClose={handleEditClose}
-          aria-labelledby="edit-item"
-        >
-          <DialogTitle id="edit-item-title">Edit Item</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Fill the following fields to change the item details
-            </DialogContentText>
-            <TextField
-              margin="dense"
-              id="item-text"
-              label="Text"
-              value={editDetails.text}
-              onChange={e =>
-                setEditDetails({ ...editDetails, text: e.target.value })
-              }
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleEdit} color="primary">
-              Edit
-            </Button>
-            <Button onClick={handleEditClose} color="secondary">
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <MuiThemeProvider theme={blueTheme}>
+          <Dialog
+            open={isDialog}
+            onClose={handleDialogClose}
+            aria-label="dialog-remove-all"
+          >
+            <DialogTitle id="dialog-title">Remove Confirmation</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="dialog-description">
+                Are you sure you want to remove all of the items?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  setItems([]);
+                  handleDialogClose();
+                }}
+                color="primary"
+              >
+                Agree
+              </Button>
+              <Button
+                onClick={() => {
+                  handleDialogClose();
+                }}
+                color="secondary"
+              >
+                Disagree
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={isEdit}
+            onClose={handleEditClose}
+            aria-labelledby="edit-item"
+          >
+            <DialogTitle id="edit-item-title">Edit Item</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Fill the following fields to change the item details
+              </DialogContentText>
+              <TextField
+                margin="dense"
+                id="item-text"
+                label="Text"
+                value={editDetails.text}
+                onChange={e =>
+                  setEditDetails({ ...editDetails, text: e.target.value })
+                }
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleEdit} color="primary">
+                Edit
+              </Button>
+              <Button onClick={handleEditClose} color="secondary">
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </MuiThemeProvider>
         <Snackbar
           open={isAlert}
           autoHideDuration={4000}
