@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grow, LinearProgress } from "@material-ui/core";
+import Confetti from 'react-confetti'
 import soundFile from "../static/bloop.mp3";
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +82,7 @@ function Randomizer({ items }) {
             {item}
           </Typography>
         </Grow>
+        { count >= maxCount && <Confetti />}
       </div>
       <div className={classes.barDiv}>
         <LinearProgress
