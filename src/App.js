@@ -8,23 +8,26 @@ import Randomizer from "./components/Randomizer";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   body: {
-    margin: "30px"
+    margin: "30px",
   },
   fabButton: {
-    margin: "0 auto"
+    margin: "0 auto",
   },
   link: {
     textDecoration: "none",
-    color: "#fff"
+    color: "#fff",
+  },
+  credit: {
+    color: "#ccc",
   }
 }));
 
@@ -50,6 +53,9 @@ function App() {
                 <Link to="/" className={classes.link}>
                   Randomation
                 </Link>
+              </Typography>
+              <Typography variant="h7" className={classes.credit}>
+                By Dolev Z.
               </Typography>
             </Toolbar>
           </AppBar>
